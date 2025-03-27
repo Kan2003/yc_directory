@@ -26,7 +26,7 @@ const StartupCard = ({ post }: { post: StartupCardtype }) => {
   const {
     _createdAt,
     views,
-    author: { _id: authorId, name },
+    author: { _id: authorId, name , image : authorImage },
     title,
     category,
     _id,
@@ -34,7 +34,6 @@ const StartupCard = ({ post }: { post: StartupCardtype }) => {
     description,
   } = post;
 
-  console.log(_createdAt)
   return (
     <li className="startup-card group">
       <div className="flex-between">
@@ -57,10 +56,11 @@ const StartupCard = ({ post }: { post: StartupCardtype }) => {
         <Link href={`/user/${authorId}`}>
           <Image
             className="rounded-full"
-            src={image}
+            src={authorImage}
             alt=""
             width={48}
             height={48}
+            style={{width: "48px" , height: "48px"}}
           />
         </Link>
       </div>
