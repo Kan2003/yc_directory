@@ -27,16 +27,15 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
+  const params = {search : query || null}
 
-
-  // this is normal method to fetch data 
+  // this is normal method to fetch data
   // const posts = await client.fetch(STARTUP_QUERY);
 
-  // this is the new to show the updated data without relaoding 
-  const {data: posts} = await sanityFetch({ query: STARTUP_QUERY });
- 
+  // this is the new to show the updated data without relaoding  live content api
+  const { data: posts } = await sanityFetch({ query: STARTUP_QUERY , params });
 
-  // static data 
+  // static data
   // const posts = [
   //   {
   //     _createdAt: new Date(),
@@ -64,13 +63,14 @@ export default async function Home({
         <SearchForm query={query} />
       </section>
       <section className="section_container">
-        <p className="text-30-semibold"></p>
-        {query ? `search results for ${query}` : "All StartUps"}
+        <p className="text-30-semibold">
+          {query ? `search results for "${query}"` : "All StartUps"}
+        </p>
 
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post : StartupCardtype , index : number) => (
-              <StartupCard key={post?._id} post={post}/>
+            posts.map((post: StartupCardtype, index: number) => (
+              <StartupCard key={post?._id} post={post} />
             ))
           ) : (
             <p className="no-results">No startups found</p>
@@ -78,7 +78,7 @@ export default async function Home({
         </ul>
       </section>
 
-      <SanityLive/>
+      <SanityLive />
     </>
   );
 }
