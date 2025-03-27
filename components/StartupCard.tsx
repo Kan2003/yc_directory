@@ -5,7 +5,24 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 
-const StartupCard = ({ post }: { post: StartuptypeCard }) => {
+interface StartupCardtype {
+  _id: string;
+  title: string;
+  slug: string;
+  _createdAt: string;
+  author: {
+    _id: string;
+    image: string;
+    name: string;
+    bio: string;
+  };
+  description: string;
+  image: string;
+  views: number;
+  category: string;
+}
+
+const StartupCard = ({ post }: { post: StartupCardtype }) => {
   const {
     _createdAt,
     views,
@@ -16,6 +33,8 @@ const StartupCard = ({ post }: { post: StartuptypeCard }) => {
     image,
     description,
   } = post;
+
+  console.log(_createdAt)
   return (
     <li className="startup-card group">
       <div className="flex-between">
@@ -51,7 +70,7 @@ const StartupCard = ({ post }: { post: StartuptypeCard }) => {
         <img src={image} alt="image" className="startup-card_img" />
       </Link>
       <div className="flex-between gap-3 mt-5">
-        <Link href={`/?query=${category.toLowerCase()}`}>
+        <Link href={`/?query=${category?.toLowerCase()}`}>
           <p className="text-18-medium">{category}</p>
         </Link>
         <Button className="startup-card_btn" asChild>
