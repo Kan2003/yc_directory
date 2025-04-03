@@ -38,6 +38,7 @@ export default async function Home({
   // const posts = await client.fetch(STARTUP_QUERY);
 
   // this is the new to show the updated data without relaoding  live content api
+  
   const { data: posts } = await sanityFetch({ query: STARTUP_QUERY , params });
 
   // static data

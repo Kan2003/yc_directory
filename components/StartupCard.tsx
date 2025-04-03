@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
+import { Skeleton } from "./ui/skeleton";
 
 interface StartupCardtype {
   _id: string;
@@ -80,5 +81,16 @@ const StartupCard = ({ post }: { post: StartupCardtype }) => {
     </li>
   );
 };
+
+export const StartupCardSkeleton = () => (
+  <>
+ { [0,1,2,3,4].map((index:number) => (
+      <li key={index}>
+          <Skeleton className="startup-card_skeleton"/>
+      </li>
+  ))}
+  
+  </>
+)
 
 export default StartupCard;

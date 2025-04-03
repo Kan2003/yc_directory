@@ -8,14 +8,14 @@ import { Button } from "./ui/button";
 import { Send } from "lucide-react";
 import { FormsSchema } from "@/lib/validation";
 import { z } from "zod";
-import { error } from "console";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/router";
+import { createPitch } from "@/lib/action";
+import { useRouter } from "next/navigation";
 const StartupForm = () => {
   const [errors, SetError] = useState<Record<string, string>>({});
   const [pitch, SetPitch] = useState<string>();
   const { toast } = useToast();
-//   const {router} = useRouter()
+  const router = useRouter();
   const handleFormSubmit = async (prevState: any, formdata: FormData) => {
     try {
       const formValue = {
@@ -28,19 +28,19 @@ const StartupForm = () => {
 
       await FormsSchema.parseAsync(formValue);
 
-      // const result = await CreateIdea(prevState, formdata , pitch)
+      const result = await createPitch(prevState, formdata , pitch as string)
       console.log(formValue);
 
 
-    //   if(result.status == 'SUCCESS'){
-    //     toast({
-    //         title: 'Success',
-    //         description: 'Your Startup Pitch has been Created !!',
-    //     })
-    //     router.push(`/startup/${result.id}`)
-    //   }
+      if(result.status == 'SUCCESS'){
+        toast({
+            title: 'Success',
+            description: 'Your Startup Pitch has been Created !!',
+        })
+        router.push(`/startup/${result._id}`)
+      }
 
-    //   return result;
+      return result;
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldError = error.flatten().fieldErrors;

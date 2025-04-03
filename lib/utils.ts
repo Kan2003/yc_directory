@@ -18,3 +18,8 @@ export const viewOrViews = (view : number) => {
 
   return view+ " view"
 }
+
+
+export const parseServerActionResponse = <T>(response : T) => {
+  return JSON.parse(JSON.stringify(response))
+}
