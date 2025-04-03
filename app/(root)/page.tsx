@@ -32,7 +32,6 @@ export default async function Home({
 
   const session = await auth();
 
-  console.log(session?.id)
 
   // this is normal method to fetch data
   // const posts = await client.fetch(STARTUP_QUERY);
